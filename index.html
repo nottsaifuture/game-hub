@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game Hub — pick a game and play</title>
+<meta name="description" content="One page with every game: the Year 3, Year 5 and Year 6 arcades, Hole Digger Games, SATs Practice Arena and the Hexagon Puzzle Companion. Tap a card to play.">
+<meta name="theme-color" content="#fff7ea">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ff7a45'/%3E%3Cpath d='M26 20v24l20-12z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#fff7ea; --ink:#1d1a2b; --muted:#5d5870; --card:#ffffff; --line:#eadfcc;
+    --chip:#ffffff; --chip-on:#1d1a2b; --chip-on-ink:#ffffff; --shadow:0 6px 0 rgba(29,26,43,.10);
+    --focus:#2b6cff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14121f; --ink:#f4f1ff; --muted:#b3adc8; --card:#1f1c2e; --line:#34304a;
+      --chip:#1f1c2e; --chip-on:#f4f1ff; --chip-on-ink:#14121f; --shadow:0 6px 0 rgba(0,0,0,.35);
+      --focus:#8fb4ff;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:ui-rounded,"SF Pro Rounded","Nunito","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.45;
+  }
+  .wrap{width:min(1120px,100%); margin:0 auto; padding:28px 16px 56px}
+
+  header{text-align:center; padding:12px 0 6px}
+  .logo{
+    display:inline-grid; place-items:center; width:64px; height:64px; border-radius:20px;
+    background:#ff7a45; box-shadow:var(--shadow); margin-bottom:14px;
+  }
+  h1{font-size:clamp(2rem,6vw,3.2rem); line-height:1.05; margin:0 0 8px; letter-spacing:-.02em; font-weight:800}
+  .lead{margin:0 auto; max-width:34rem; color:var(--muted); font-size:1.1rem}
+
+  .chips{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:24px 0 22px}
+  .chip{
+    font:inherit; font-weight:700; font-size:1rem; color:var(--ink); background:var(--chip);
+    border:2px solid var(--line); border-radius:999px; padding:10px 18px; min-height:44px; cursor:pointer;
+  }
+  .chip:hover{border-color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--chip-on); color:var(--chip-on-ink); border-color:var(--chip-on)}
+
+  .grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); list-style:none; margin:0; padding:0}
+  .card{
+    display:flex; flex-direction:column; height:100%; text-decoration:none; color:inherit;
+    background:var(--card); border:2px solid var(--line); border-radius:24px; overflow:hidden;
+    box-shadow:var(--shadow); transition:transform .15s ease, border-color .15s ease;
+  }
+  .card:hover{transform:translateY(-4px); border-color:var(--c)}
+  .card:active{transform:translateY(0)}
+  :focus-visible{outline:4px solid var(--focus); outline-offset:3px}
+  .art{aspect-ratio:16/9; background:var(--c); display:block; width:100%}
+  .art svg{display:block; width:100%; height:100%}
+  .body{display:flex; flex-direction:column; gap:8px; padding:16px 18px 18px; flex:1}
+  .tag{
+    align-self:flex-start; font-size:.8rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--c-ink); background:var(--c-soft); border-radius:999px; padding:4px 10px;
+  }
+  .card h2{font-size:1.45rem; line-height:1.15; margin:2px 0 0; font-weight:800; letter-spacing:-.01em}
+  .card p{margin:0; color:var(--muted); font-size:1rem}
+  .go{
+    margin-top:auto; padding-top:10px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+  }
+  .play{
+    display:inline-flex; align-items:center; gap:8px; background:var(--c); color:#fff; font-weight:800;
+    font-size:1.05rem; border-radius:999px; padding:10px 20px; min-height:44px;
+  }
+  .site{font-size:.85rem; color:var(--muted); overflow-wrap:anywhere; text-align:right}
+  .empty{text-align:center; color:var(--muted); padding:30px 0}
+  footer{margin-top:36px; text-align:center; color:var(--muted); font-size:.9rem}
+
+  @media (prefers-color-scheme: dark){
+    .tag{background:color-mix(in srgb,var(--c) 28%,transparent); color:#fff}
+  }
+  @media (prefers-reduced-motion: reduce){ .card{transition:none} .card:hover{transform:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo" aria-hidden="true">
+      <svg width="30" height="30" viewBox="0 0 30 30"><path d="M9 5v20l17-10z" fill="#fff"/></svg>
+    </div>
+    <h1>Game Hub</h1>
+    <p class="lead">All the games in one place. Tap a card to start playing.</p>
+  </header>
+
+  <div class="chips" role="group" aria-label="Show games for">
+    <button class="chip" data-f="all" aria-pressed="true">All games</button>
+    <button class="chip" data-f="y3" aria-pressed="false">Year 3</button>
+    <button class="chip" data-f="y5" aria-pressed="false">Year 5</button>
+    <button class="chip" data-f="y6" aria-pressed="false">Year 6</button>
+    <button class="chip" data-f="any" aria-pressed="false">Anyone</button>
+  </div>
+
+  <ul class="grid" id="grid">
+
+    <li data-for="y3">
+      <a class="card" href="https://nottsaifuture.github.io/Fairfieldyear3arcade/" style="--c:#0e8f6e;--c-soft:#d9f5ec;--c-ink:#07624b">
+        <span class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180"><rect width="320" height="180" fill="#0e8f6e"/>
+            <g font-family="ui-rounded,system-ui,sans-serif" font-weight="800" font-size="26" text-anchor="middle">
+              <g fill="#fff"><rect x="62" y="68" width="44" height="44" rx="9"/><rect x="112" y="68" width="44" height="44" rx="9"/><rect x="162" y="68" width="44" height="44" rx="9"/><rect x="212" y="68" width="44" height="44" rx="9"/><rect x="112" y="18" width="44" height="44" rx="9" opacity=".55"/><rect x="112" y="118" width="44" height="44" rx="9" opacity=".55"/></g>
+              <rect x="162" y="68" width="44" height="44" rx="9" fill="#ffd34d"/>
+              <g fill="#0b4d3c"><text x="84" y="100">W</text><text x="134" y="100">O</text><text x="184" y="100">R</text><text x="234" y="100">D</text><text x="134" y="50">Y</text><text x="134" y="150">3</text></g>
+            </g></svg>
+        </span>
+        <span class="body">
+          <span class="tag">Year 3</span>
+          <h2>Year 3 Word Arcade</h2>
+          <p>Weekly spelling practice with two quick games: Word Hunt and Word Cross.</p>
+          <span class="go"><span class="play">Play <span aria-hidden="true">→</span></span><span class="site">nottsaifuture.github.io</span></span>
+        </span>
+      </a>
+    </li>
+
+    <li data-for="y5">
+      <a class="card" href="https://newwilsonforyou.github.io/roman-siege/" style="--c:#b3352f;--c-soft:#fde3e0;--c-ink:#8a231e">
+        <span class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180"><rect width="320" height="180" fill="#b3352f"/>
+            <circle cx="262" cy="46" r="24" fill="#ffd34d"/>
+            <g fill="#fff"><path d="M60 62h120l-60-34z"/><rect x="60" y="66" width="120" height="10" rx="2"/><rect x="70" y="80" width="16" height="64" rx="3"/><rect x="100" y="80" width="16" height="64" rx="3"/><rect x="130" y="80" width="16" height="64" rx="3"/><rect x="160" y="80" width="16" height="64" rx="3"/><rect x="52" y="146" width="136" height="12" rx="3"/></g>
+            <g font-family="Georgia,'Times New Roman',serif" font-weight="700" fill="#fff" font-size="30"><text x="206" y="112">XXIV</text><text x="214" y="148" font-size="22" opacity=".75">VII · IX</text></g></svg>
+        </span>
+        <span class="body">
+          <span class="tag">Year 5</span>
+          <h2>Year 5 Arcade</h2>
+          <p>Twenty-four games filed by term: the Amazon, the Maya, the Victorians, the Solar System, Roman numerals and class books.</p>
+          <span class="go"><span class="play">Play <span aria-hidden="true">→</span></span><span class="site">newwilsonforyou.github.io</span></span>
+        </span>
+      </a>
+    </li>
+
+    <li data-for="y6">
+      <a class="card" href="https://nottsaifuture.github.io/Fairfieldyear6arcade/" style="--c:#5b3fd6;--c-soft:#e7e1ff;--c-ink:#4129a8">
+        <span class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180"><rect width="320" height="180" fill="#5b3fd6"/>
+            <g font-family="ui-rounded,system-ui,sans-serif" font-weight="800" font-size="22" text-anchor="middle" fill="#fff" opacity=".5">
+              <text x="60" y="48">K</text><text x="110" y="48">P</text><text x="160" y="48">R</text><text x="210" y="48">Z</text><text x="260" y="48">Q</text>
+              <text x="60" y="148">M</text><text x="110" y="148">V</text><text x="160" y="148">T</text><text x="210" y="148">J</text><text x="260" y="148">X</text>
+            </g>
+            <rect x="36" y="68" width="248" height="46" rx="23" fill="#ffd34d"/>
+            <g font-family="ui-rounded,system-ui,sans-serif" font-weight="800" font-size="26" text-anchor="middle" fill="#2a1a78">
+              <text x="60" y="100">W</text><text x="110" y="100">O</text><text x="160" y="100">R</text><text x="210" y="100">D</text><text x="260" y="100">S</text>
+            </g></svg>
+        </span>
+        <span class="body">
+          <span class="tag">Year 6</span>
+          <h2>Year 6 Arcade</h2>
+          <p>Fresh spelling words every Monday. Hunt them in a word search, then solve them as a crossword.</p>
+          <span class="go"><span class="play">Play <span aria-hidden="true">→</span></span><span class="site">nottsaifuture.github.io</span></span>
+        </span>
+      </a>
+    </li>
+
+    <li data-for="y6">
+      <a class="card" href="https://satspracticearena.co.uk/" style="--c:#1f4fd1;--c-soft:#dfe8ff;--c-ink:#173c9f">
+        <span class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180"><rect width="320" height="180" fill="#1f4fd1"/>
+            <rect x="92" y="22" width="136" height="136" rx="12" fill="#fff"/>
+            <g stroke="#c9d3ee" stroke-width="8" stroke-linecap="round"><path d="M146 56h62M146 90h62M146 124h62"/></g>
+            <g fill="none" stroke="#17a05d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M108 56l8 8 14-16"/><path d="M108 90l8 8 14-16"/><path d="M108 124l8 8 14-16"/></g>
+            <circle cx="248" cy="40" r="26" fill="#ffd34d"/><text x="248" y="49" text-anchor="middle" font-family="ui-rounded,system-ui,sans-serif" font-weight="800" font-size="24" fill="#173c9f">A+</text></svg>
+        </span>
+        <span class="body">
+          <span class="tag">Year 6 · SATs</span>
+          <h2>SATs Practice Arena</h2>
+          <p>Real KS2 SATs questions from the 2016–2025 papers, marked instantly. 240 questions are free to start.</p>
+          <span class="go"><span class="play">Practise <span aria-hidden="true">→</span></span><span class="site">satspracticearena.co.uk</span></span>
+        </span>
+      </a>
+    </li>
+
+    <li data-for="y5 any">
+      <a class="card" href="https://holedigger.co.uk/" style="--c:#c2620a;--c-soft:#ffe9cf;--c-ink:#8f4703">
+        <span class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180"><rect width="320" height="180" fill="#f2a53a"/>
+            <circle cx="64" cy="48" r="26" fill="#fff3c4"/>
+            <path d="M0 120q80-26 160-6t160-10v76H0z" fill="#c2620a"/>
+            <ellipse cx="150" cy="140" rx="64" ry="18" fill="#5a2b05"/>
+            <g transform="rotate(14 214 90)"><rect x="210" y="20" width="9" height="92" rx="4" fill="#7a4a1c"/><rect x="200" y="14" width="29" height="10" rx="5" fill="#7a4a1c"/><path d="M198 108h33v20q0 20-16.5 30Q198 148 198 128z" fill="#e9eef5"/></g></svg>
+        </span>
+        <span class="body">
+          <span class="tag">Reading · Holes</span>
+          <h2>Hole Digger Games</h2>
+          <p>Three games and a 126-question quiz for readers of <i>Holes</i>. Dig for treasure and survive the desert.</p>
+          <span class="go"><span class="play">Play <span aria-hidden="true">→</span></span><span class="site">holedigger.co.uk</span></span>
+        </span>
+      </a>
+    </li>
+
+    <li data-for="any">
+      <a class="card" href="https://hexagon-puzzle-companion.pages.dev/" style="--c:#0b7f96;--c-soft:#d6f2f7;--c-ink:#075a6b">
+        <span class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180"><rect width="320" height="180" fill="#0b7f96"/>
+            <defs><path id="hx" d="M0-26l22.5 13v26L0 26l-22.5-13v-26z"/></defs>
+            <g stroke="#0b7f96" stroke-width="3">
+              <use href="#hx" x="92" y="62" fill="#ffd34d"/><use href="#hx" x="138" y="62" fill="#ffd34d"/><use href="#hx" x="184" y="62" fill="#ff7a6b"/><use href="#hx" x="230" y="62" fill="#fff"/>
+              <use href="#hx" x="69" y="102" fill="#8ee6a8"/><use href="#hx" x="115" y="102" fill="#ffd34d"/><use href="#hx" x="161" y="102" fill="#ff7a6b"/><use href="#hx" x="207" y="102" fill="#ff7a6b"/><use href="#hx" x="253" y="102" fill="#fff"/>
+              <use href="#hx" x="92" y="142" fill="#8ee6a8"/><use href="#hx" x="138" y="142" fill="#8ee6a8"/><use href="#hx" x="184" y="142" fill="#fff" opacity=".35"/><use href="#hx" x="230" y="142" fill="#fff"/>
+            </g></svg>
+        </span>
+        <span class="body">
+          <span class="tag">Puzzle</span>
+          <h2>Hexagon Puzzle Companion</h2>
+          <p>Fit pieces A–L onto a 56-cell hexagon board. Get hints or generate a new solvable puzzle.</p>
+          <span class="go"><span class="play">Play <span aria-hidden="true">→</span></span><span class="site">hexagon-puzzle-companion.pages.dev</span></span>
+        </span>
+      </a>
+    </li>
+
+  </ul>
+  <p class="empty" id="empty" hidden>No games here yet.</p>
+
+  <footer>Each game opens on its own website. Use your browser’s back button to return here.</footer>
+</div>
+
+<script>
+(function(){
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  var items=[].slice.call(document.querySelectorAll('#grid > li'));
+  var empty=document.getElementById('empty');
+  function apply(f){
+    var shown=0;
+    items.forEach(function(li){
+      var on=f==='all'||li.getAttribute('data-for').split(' ').indexOf(f)>-1;
+      li.hidden=!on; if(on) shown++;
+    });
+    chips.forEach(function(c){c.setAttribute('aria-pressed',String(c.getAttribute('data-f')===f));});
+    empty.hidden=shown>0;
+    try{localStorage.setItem('hubFilter',f);}catch(e){}
+  }
+  chips.forEach(function(c){c.addEventListener('click',function(){apply(c.getAttribute('data-f'));});});
+  var saved='all';
+  try{saved=localStorage.getItem('hubFilter')||'all';}catch(e){}
+  if(!chips.some(function(c){return c.getAttribute('data-f')===saved;})) saved='all';
+  apply(saved);
+})();
+</script>
+</body>
+</html>
