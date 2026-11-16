@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Origami Animations 摺紙動畫 — watch paper fold step by step</title>
+<meta name="description" content="Six 3D origami folding animations: crane, paper airplane, swan, heart, samurai helmet and paper cup. Play, pause and scrub through every fold.">
+<meta name="theme-color" content="#fff7ea">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23d8452f'/%3E%3Cpath d='M10 40l22-8 8-20 4 22 12-4-18 22z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root{--bg:#fff7ea;--ink:#1d1a2b;--muted:#5d5870;--card:#fff;--line:#eadfcc;--shadow:0 6px 0 rgba(29,26,43,.10);--focus:#2b6cff;--accent:#d8452f}
+  @media (prefers-color-scheme: dark){:root{--bg:#14121f;--ink:#f4f1ff;--muted:#b3adc8;--card:#1f1c2e;--line:#34304a;--shadow:0 6px 0 rgba(0,0,0,.35);--focus:#8fb4ff}}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.45;
+    font-family:ui-rounded,"SF Pro Rounded","Nunito","Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif}
+  .wrap{width:min(1120px,100%);margin:0 auto;padding:20px 16px 56px}
+  .back{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border:2px solid var(--line);border-radius:999px;
+    background:var(--card);color:var(--ink);font-weight:700;text-decoration:none}
+  .back:hover{border-color:var(--ink)}
+  header{text-align:center;padding:18px 0 26px}
+  h1{font-size:clamp(2rem,6vw,3rem);line-height:1.08;margin:0 0 8px;letter-spacing:-.02em;font-weight:800}
+  h1 span{display:block;font-size:.55em;color:var(--accent);letter-spacing:.06em;margin-top:6px}
+  .lead{margin:0 auto;max-width:36rem;color:var(--muted);font-size:1.1rem}
+  .grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));list-style:none;margin:0;padding:0}
+  .card{display:flex;flex-direction:column;height:100%;text-decoration:none;color:inherit;background:var(--card);border:2px solid var(--line);
+    border-radius:24px;overflow:hidden;box-shadow:var(--shadow);transition:transform .15s ease,border-color .15s ease}
+  .card:hover{transform:translateY(-4px);border-color:var(--c)}
+  :focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+  .card img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#e9dcc8}
+  .body{display:flex;flex-direction:column;gap:6px;padding:14px 18px 18px;flex:1}
+  .card h2{font-size:1.4rem;line-height:1.15;margin:0;font-weight:800}
+  .card h2 small{font-size:.7em;font-weight:700;color:var(--muted);margin-left:6px}
+  .card p{margin:0;color:var(--muted)}
+  .go{margin-top:auto;padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .play{display:inline-flex;align-items:center;gap:8px;background:var(--c);color:#fff;font-weight:800;border-radius:999px;padding:10px 20px;min-height:44px}
+  .steps{font-size:.9rem;color:var(--muted);font-weight:700}
+  footer{margin-top:36px;text-align:center;color:var(--muted);font-size:.9rem}
+  @media (prefers-reduced-motion: reduce){.card{transition:none}.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../"><span aria-hidden="true">←</span> Game Hub</a>
+  <header>
+    <h1>Origami Animations <span>摺紙動畫</span></h1>
+    <p class="lead">Watch one sheet of paper fold, step by step, into six models. Press play, drag the slider, or spin the model round with your finger.</p>
+  </header>
+
+  <ul class="grid">
+    <li><a class="card" href="crane.html" style="--c:#c23a26"><img src="thumbs/crane.jpg" alt="Finished red origami crane" width="640" height="360">
+      <span class="body"><h2>Crane <small lang="zh-Hant">紙鶴</small></h2><p>The classic. Bird base, petal folds, reverse folds for the neck and tail.</p>
+      <span class="go"><span class="play">Watch <span aria-hidden="true">→</span></span><span class="steps">16 steps</span></span></span></a></li>
+    <li><a class="card" href="airplane.html" style="--c:#2b6fb0"><img src="thumbs/airplane.jpg" alt="Finished paper airplane" width="640" height="360">
+      <span class="body"><h2>Paper Airplane <small lang="zh-Hant">紙飛機</small></h2><p>The dart everyone knows, with level wings and a keel to hold.</p>
+      <span class="go"><span class="play">Watch <span aria-hidden="true">→</span></span><span class="steps">11 steps</span></span></span></a></li>
+    <li><a class="card" href="swan.html" style="--c:#56607a"><img src="thumbs/swan.jpg" alt="Finished origami swan" width="640" height="360">
+      <span class="body"><h2>Swan <small lang="zh-Hant">天鵝</small></h2><p>A kite base that turns into a long neck, a head and a tail.</p>
+      <span class="go"><span class="play">Watch <span aria-hidden="true">→</span></span><span class="steps">12 steps</span></span></span></a></li>
+    <li><a class="card" href="heart.html" style="--c:#c7305c"><img src="thumbs/heart.jpg" alt="Finished origami heart" width="640" height="360">
+      <span class="body"><h2>Heart <small lang="zh-Hant">愛心</small></h2><p>The quickest one here. A good first fold.</p>
+      <span class="go"><span class="play">Watch <span aria-hidden="true">→</span></span><span class="steps">6 steps</span></span></span></a></li>
+    <li><a class="card" href="helmet.html" style="--c:#2b5aa8"><img src="thumbs/helmet.jpg" alt="Finished blue samurai helmet" width="640" height="360">
+      <span class="body"><h2>Samurai Helmet <small lang="zh-Hant">武士頭盔</small></h2><p>The kabuto, with two horns and a folded brim.</p>
+      <span class="go"><span class="play">Watch <span aria-hidden="true">→</span></span><span class="steps">9 steps</span></span></span></a></li>
+    <li><a class="card" href="cup.html" style="--c:#1f8257"><img src="thumbs/cup.jpg" alt="Finished green paper cup, opened" width="640" height="360">
+      <span class="body"><h2>Paper Cup <small lang="zh-Hant">紙杯</small></h2><p>Fold it flat, then push the mouth open into a cup.</p>
+      <span class="go"><span class="play">Watch <span aria-hidden="true">→</span></span><span class="steps">8 steps</span></span></span></a></li>
+  </ul>
+
+  <footer>Every fold is checked by the computer so the paper never passes through itself. Needs an internet connection to load.</footer>
+</div>
+</body>
+</html>
